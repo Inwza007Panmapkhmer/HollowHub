@@ -863,26 +863,7 @@ local resizing = false
 local dragging = false
 local offset = Vector2.new()
 local resizeOffset = Vector2.new()
-local textFrames = {
-	game.Players.LocalPlayer.PlayerGui.UI.Frame,
-	game.Players.LocalPlayer.PlayerGui.UI.Frame:WaitForChild("AboutFrame"),
-	game.Players.LocalPlayer.PlayerGui.UI.Frame:WaitForChild("AnnoyingFrame"),
-	game.Players.LocalPlayer.PlayerGui.UI.Frame:WaitForChild("ForceFrame"),
-	game.Players.LocalPlayer.PlayerGui.UI.Frame:WaitForChild("SignFrame")
-}
 
-local function updateTextSize(size)
-	local minTextSize = 1 
-	local maxTextSize = 20
-	local textSize = math.min(math.max(size.X * size.Y / 500, minTextSize), maxTextSize)
-	for _, textFrame in ipairs(textFrames) do
-		for _, TextLabel in ipairs(textFrame:GetDescendants()) do
-			if TextLabel:IsA("TextLabel") or TextLabel:IsA("TextButton") then
-				TextLabel.TextSize = textSize
-			end
-		end
-	end
-end
 
 
 frame.InputBegan:Connect(function(input)
@@ -917,10 +898,6 @@ UIS.InputChanged:Connect(function(input)
 			ForceFrame.Size = UDim2.new(0, math.max(newSize.X, 100), 0, math.max(newSize.Y, 100)) -- Minimum Size
 			PunchFrame.Size = UDim2.new(0, math.max(newSize.X, 100), 0, math.max(newSize.Y, 100)) -- Minimum Size
 			SignFrame.Size = UDim2.new(0, math.max(newSize.X, 100), 0, math.max(newSize.Y, 100)) -- Minimum Size
-			for _, textFrame in ipairs(textFrames) do
-				textFrame.Size = frame.Size
-			end
-			updateTextSize(newSize)
 		end
 	end
 end)
